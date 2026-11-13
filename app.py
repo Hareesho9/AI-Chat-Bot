@@ -19,30 +19,6 @@ except (KeyError, FileNotFoundError):
 
 client = genai.Client(api_key=api_key)
 
-# Temporary diagnostic: list available text-generation models
-if st.button("Check available Gemini models"):
-    try:
-        available = []
-        for model in client.models.list():
-            actions = (
-                getattr(model, "supported_actions", None)
-                or []
-            )
-            if "generateContent" in actions:
-                available.append(model.name)
-
-        st.write("Available text-generation models:")
-        st.write(available)
-
-        if not available:
-            st.info(
-                "No models were returned with generateContent "
-                "listed. Check the API response and model metadata."
-            )
-    except Exception as e:
-        st.error(f"Gemini API details: {str(e)}")
-
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
