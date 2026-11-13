@@ -8,7 +8,7 @@ st.set_page_config(
 )
 
 st.title("🤖 AI Agent Chatbot")
-st.caption("Powered by Google Gemini | AI Engineering Portfolio")
+st.caption("Welcome to Hareesh Portfolio ChatBot")
 
 # Read API key securely from Streamlit Secrets
 try:
