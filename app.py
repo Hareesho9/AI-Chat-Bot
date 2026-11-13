@@ -81,14 +81,13 @@ if prompt:
 
                 answer = response.text or "No response generated."
                 st.write(answer)
-
-            
-            
-    
+                
+                
             except Exception as e:
                 answer = "Unable to generate a response."
                 st.error(answer)
-
+                st.error(f"Gemini API details: {str(e)}")
+                
                 status = getattr(e, "code", None)
                 print(
                     f"Gemini HTTP status: {status}",
