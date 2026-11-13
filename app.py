@@ -65,7 +65,7 @@ if prompt:
         with st.spinner("Thinking..."):
             try:
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-flash-latest",
                     contents=[
                         {
                             "role": (
