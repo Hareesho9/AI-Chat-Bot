@@ -58,9 +58,15 @@ if prompt:
                 answer = response.text or "No response generated."
                 st.write(answer)
 
-            except Exception:
-                answer = "Unable to generate a response. Please try again."
+            
+            except Exception as e:
+                answer = "Unable to generate a response."
                 st.error(answer)
+                print(
+                    f"Gemini error type: {type(e).__name__}",
+                    flush=True
+                )
+
 
     st.session_state.messages.append({
         "role": "assistant",
