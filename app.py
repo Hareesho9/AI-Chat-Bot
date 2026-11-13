@@ -59,11 +59,15 @@ if prompt:
                 st.write(answer)
 
             
+            
+    
             except Exception as e:
                 answer = "Unable to generate a response."
                 st.error(answer)
+
+                status = getattr(e, "code", None)
                 print(
-                    f"Gemini error type: {type(e).__name__}",
+                    f"Gemini HTTP status: {status}",
                     flush=True
                 )
 
