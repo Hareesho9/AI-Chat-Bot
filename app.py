@@ -40,10 +40,7 @@ if st.button("Check available Gemini models"):
                 "listed. Check the API response and model metadata."
             )
     except Exception as e:
-        st.error(
-            f"Model lookup failed. HTTP status: "
-            f"{getattr(e, 'code', 'unknown')}"
-        )
+        st.error(f"Gemini API details: {str(e)}")
 
 
 if "messages" not in st.session_state:
