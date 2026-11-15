@@ -1,6 +1,7 @@
 
 import streamlit as st
 from google import genai
+from document_assistant import show_document_assistant
 
 st.set_page_config(
     page_title="AI Agent Chatbot",
@@ -18,6 +19,19 @@ except (KeyError, FileNotFoundError):
     st.stop()
 
 client = genai.Client(api_key=api_key)
+
+# PDF & Document Assistant
+if st.sidebar.button("📄 Document Assistant"):
+    st.session_state["show_documents"] = True
+
+if st.session_state.get("show_documents", False):
+    if st.sidebar.button("⬅️ Back to Chatbot"):
+        st.session_state["show_documents"] = False
+        st.rerun()
+
+    show_document_assistant(api_key)
+    st.stop()
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
