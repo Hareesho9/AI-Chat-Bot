@@ -33,7 +33,8 @@ for message in st.session_state.messages:
 chat_message = st.chat_input(
     "Ask me anything...",
     accept_file="multiple",
-    file_type=["pdf", "docx", "txt", "csv"]
+    file_type=["pdf", "docx", "txt", "csv"],
+    key="main_chat_upload"
 )
 
 prompt = None
