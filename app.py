@@ -2,6 +2,7 @@
 import streamlit as st
 from google import genai
 from document_assistant import show_document_assistant
+from document_assistant import read_document
 
 st.set_page_config(
     page_title="AI Agent Chatbot",
@@ -28,7 +29,20 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-prompt = st.chat_input("Ask me anything...")
+
+chat_message = st.chat_input(
+    "Ask me anything...",
+    accept_file="multiple",
+    file_type=["pdf", "docx", "txt", "csv"]
+)
+
+prompt = None
+uploaded_files = []
+
+if chat_message:
+    prompt = chat_message.text
+    uploaded_files = chat_message.files
+
 
 if prompt:
     st.session_state.messages.append({
