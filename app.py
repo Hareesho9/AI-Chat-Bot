@@ -44,6 +44,30 @@ if chat_message:
     uploaded_files = chat_message.files
 
 
+chat = st.chat_input(
+    "Ask me anything...",
+    accept_file="multiple",
+    file_type=["pdf", "docx", "txt", "csv"]
+)
+
+prompt = chat.text if chat else None
+uploaded_files = chat.files if chat else []
+
+from document_assistant import read_document
+
+if uploaded_files:
+    document_text = ""
+
+    for file in uploaded_files:
+        try:
+            text = read_document(file)
+            document_text += f"\n\nDocument: {file.name}\n{text}"
+        except Exception as e:
+            st.error(f"Error reading {file.name}: {e}")
+
+    st.session_state["document_text"] = document_text[:60000]
+
+
 if prompt:
     st.session_state.messages.append({
         "role": "user",
@@ -65,7 +89,16 @@ if prompt:
                                 if m["role"] == "assistant"
                                 else "user"
                             ),
-                            "parts": [{"text": m["content"]}]
+                            "parts": [{"text": (
+                                "Uploaded document:\n"
+                                + st.session_state.get("document_text", "")
+                                + "\n\nUser message:\n"
+                                + m["content"]
+                                if m["role"] == "user"
+                                and st.session_state.get("document_text")
+                                else m["content"]
+                            )}]
+
                         }
                         for m in st.session_state.messages
                     ]
