@@ -45,15 +45,6 @@ if chat_message:
     uploaded_files = chat_message.files
 
 
-chat = st.chat_input(
-    "Ask me anything...",
-    accept_file="multiple",
-    file_type=["pdf", "docx", "txt", "csv"]
-)
-
-prompt = chat.text if chat else None
-uploaded_files = chat.files if chat else []
-
 from document_assistant import read_document
 
 if uploaded_files:
